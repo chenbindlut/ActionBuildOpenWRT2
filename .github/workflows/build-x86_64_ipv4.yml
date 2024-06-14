@@ -21,7 +21,9 @@ env:
 jobs:
   build:
     runs-on: ubuntu-22.04
-
+    timeout-minutes: 360 # 自己加时间
+    env:
+      SSH_ACTIONS: true    
     steps:
     - name: Before freeing up disk space
       run: |
@@ -116,6 +118,8 @@ jobs:
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
+    - name: Setup Debug Session-SSH
+      uses: csexton/debugger-action@master
 
     - name: Download package
       id: package
